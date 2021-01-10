@@ -1,0 +1,26 @@
+{
+
+  "manifest_version": 2,
+  "name": "FridayWasted",
+  "description": "Waste only one day weekly browsing unproductive pages -block them for the rest of the week",
+  "version": "0.0.1",
+
+  "icons": {
+    "48": "icons/favicon.png",
+    "96": "icons/favicon.png"
+  },
+
+  "background": {
+    "scripts": [
+      "background/friday_wasted.js"
+    ]
+  },
+
+  "options_ui": {
+    "page": "options/options.html",
+    "browser_style": true
+  },
+
+  "permissions": ["webRequest", "webRequestBlocking", "storage", "tabs", "<all_urls>"]
+
+}
