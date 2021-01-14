@@ -7,10 +7,20 @@
   </head>
 
   <body>
-
+    
     <section>
-      <span class="title">Hosts to block:</span>
-      <textarea id="blocked-hosts" rows="10" cols="50"></textarea>
+      <p>Unblock on:</p>
+      <div><input type="checkbox" id="day1_elem" name="day1"> <label for="day1_elem">Monday</label></div>
+      <div><input type="checkbox" id="day2_elem" name="day2"> <label for="day2_elem">Tuesday</label></div>
+      <div><input type="checkbox" id="day3_elem" name="day3"> <label for="day3_elem">Wednesday</label></div>
+      <div><input type="checkbox" id="day4_elem" name="day4"> <label for="day4_elem">Thursday</label></div>
+      <div><input type="checkbox" id="day5_elem" name="day5" checked> <label for="day5_elem">Friday</label></div>
+      <div><input type="checkbox" id="day6_elem" name="day6"> <label for="day6_elem">Saturday</label></div>
+      <div><input type="checkbox" id="day0_elem" name="day0"> <label for="day0_elem">Sunday</label></div>
+      <p>after </p>
+      <input type="time" id="time_elem" name="time" min="00:00" max="23:59" value="20:00" required>
+      <p>Hosts to block:</p>
+      <textarea id="blocklist_elem" rows="10" cols="50"></textarea>
     </section>
 
     <script src="options.js"></script>
