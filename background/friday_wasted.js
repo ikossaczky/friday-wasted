@@ -1,10 +1,9 @@
-// Initialize the list of blocked hosts
+// Initialization
 let blockedDomainsArray = ["example.com", "example.org"];
 let blockedDomainsRegex = regex_from_array(blockedDomainsArray)
 let dayArray = [false, false, false, false, false, true, false]
 let time="20:00"
 let minutes_threshold = int_from_time(time)
-//console.log(`blablablaaa!!!`);
 
 function regex_from_array(domainsArray) {
   return  new RegExp(("(.*"+domainsArray.join('.*)|(.*').replace('.','\\.')+".*)").replace("|(.*.*)",""), "i")
@@ -13,8 +12,6 @@ function int_from_time(time) {
   return parseInt(time.substr(0,2))*60 + parseInt(time.substr(3,4))
 }
   
-
-
 // Set the default list on installation.
 browser.runtime.onInstalled.addListener(details => {
   browser.storage.local.set({
@@ -50,7 +47,6 @@ browser.storage.onChanged.addListener(changeData => {
   console.log(`storage changed1`);
 });
 
-
 function listener(requestInfo) {
   const url = new URL(requestInfo.url);
   var d = new Date()
@@ -72,7 +68,3 @@ browser.webRequest.onBeforeRequest.addListener(
   {urls: ["<all_urls>"]},
   ["blocking"]
 );
-
-
-
-
