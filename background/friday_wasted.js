@@ -56,7 +56,7 @@ function listener(requestInfo) {
   if (blockedDomainsRegex.test(url.hostname)) {
     if (!dayArray[day] || current_minutes<minutes_threshold) {
       console.log(`its blocked`);
-      return {redirectUrl: "http://ikossaczky.github.io/"};
+      return {redirectUrl: "http://example.net/"};
     }
   }
   return {};
