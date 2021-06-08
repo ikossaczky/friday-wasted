@@ -11,15 +11,6 @@ function regex_from_array(domainsArray) {
 function int_from_time(time) {
   return parseInt(time.substr(0,2))*60 + parseInt(time.substr(3,4))
 }
-  
-// Set the default list on installation.
-browser.runtime.onInstalled.addListener(details => {
-  browser.storage.local.set({
-    blockedDomainsArray: blockedDomainsArray,
-    dayArray: dayArray,
-    time: time
-  });
-});
 
 // Get the stored regex
 browser.storage.local.get(data => {
@@ -31,8 +22,27 @@ browser.storage.local.get(data => {
     time = data.time
     minutes_threshold = int_from_time(time)
     dayArray = data.dayArray
-    //console.log(`storage get1`);
+    console.log(`storage get1`);
   }
+
+});
+  
+// Set the default list on installation.
+browser.runtime.onInstalled.addListener(details => {
+  browser.storage.local.get(data => {
+    if (!data.blockedDomainsArray) {
+      browser.storage.local.set({
+        blockedDomainsArray: blockedDomainsArray,
+        dayArray: dayArray,
+        time: time
+      });
+      console.log("setting initial data!")
+      console.log(~data.blockedDomainsArray)
+    }
+    else
+    {console.log("reusing data")}
+  })
+
 });
 
 // Listen for changes in the blocked list
