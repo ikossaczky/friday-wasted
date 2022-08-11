@@ -5,15 +5,17 @@ let dayArray = [false, false, false, false, false, true, false]
 let time="20:00"
 let minutes_threshold = int_from_time(time)
 
+
 function regex_from_array(domainsArray) {
-  return  new RegExp(("(.*"+domainsArray.join('.*)|(.*').replace('.','\\.')+".*)").replace("|(.*.*)",""), "i")
+  console.log("changing regex!")
+  return  new RegExp(("(.*"+domainsArray.join('.*)|(.*').replace('.','\\.')+".*)").replaceAll("|(.*.*)",""), "i")
 }
 function int_from_time(time) {
   return parseInt(time.substr(0,2))*60 + parseInt(time.substr(3,4))
 }
 
 // Get the stored regex
-browser.storage.local.get(data => {
+chrome.storage.local.get(data => {
   if (data.blockedDomainsArray) {
     //console.log(`storage get0`);
     //console.log(data)
@@ -28,10 +30,10 @@ browser.storage.local.get(data => {
 });
   
 // Set the default list on installation.
-browser.runtime.onInstalled.addListener(details => {
-  browser.storage.local.get(data => {
+chrome.runtime.onInstalled.addListener(details => {
+  chrome.storage.local.get(data => {
     if (!data.blockedDomainsArray) {
-      browser.storage.local.set({
+      chrome.storage.local.set({
         blockedDomainsArray: blockedDomainsArray,
         dayArray: dayArray,
         time: time
@@ -46,9 +48,9 @@ browser.runtime.onInstalled.addListener(details => {
 });
 
 // Listen for changes in the blocked list
-browser.storage.onChanged.addListener(changeData => {
-  //console.log(`storage changed0`);
-  //console.log(changeData)
+chrome.storage.onChanged.addListener(changeData => {
+  console.log(`storage changed0`);
+  console.log(changeData)
   blockedDomainsArray = changeData.blockedDomainsArray.newValue
   blockedDomainsRegex = regex_from_array(blockedDomainsArray);
   time = changeData.time.newValue
@@ -73,7 +75,7 @@ function listener(requestInfo) {
 };
 
 // Listen for a request to open a webpage
-browser.webRequest.onBeforeRequest.addListener(
+chrome.webRequest.onBeforeRequest.addListener(
   listener,
   {urls: ["<all_urls>"]},
   ["blocking"]

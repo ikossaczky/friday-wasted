@@ -8,6 +8,7 @@ const timeEntry = document.getElementById("time_elem");
 const htmlElemArray = dayCheckboxArray.concat([blockedDomainsTextArea, timeEntry])
 
 // Store the currently selected settings using browser.storage.local.
+
 function storeSettings() {
   let blockedDomainsArray = blockedDomainsTextArea.value.split("\n");
   let dayArray = []
@@ -16,7 +17,7 @@ function storeSettings() {
     dayArray[i] = dayCheckboxArray[i].checked
   } 
   let time = timeEntry.value
-  browser.storage.local.set({
+  chrome.storage.local.set( {
     blockedDomainsArray: blockedDomainsArray,
     dayArray: dayArray,
     time: time
@@ -39,7 +40,7 @@ function onError(e) {
 }
 
 // On opening the options page, fetch stored settings and update the UI with them.
-browser.storage.local.get().then(updateUI, onError);
+chrome.storage.local.get(null, updateUI);
 
 // Whenever the contents of the textarea changes, save the new values
 //blockedDomainsTextArea.addEventListener("change", storeSettings);
