@@ -62,8 +62,8 @@ function listener(requestInfo) {
   var d = new Date()
   day = d.getDay()
   var current_minutes = d.getHours()*60 + d.getMinutes()
-  console.log(`listening...${url.hostname}`);
-  if (blockedDomainsRegex.test(url.hostname)) {
+  console.log(`listening...${url.href}`);
+  if (blockedDomainsRegex.test(url.href)) {
     if (!dayArray[day] || current_minutes<minutes_threshold) {
       console.log(`its blocked`);
       return {redirectUrl: "http://example.net/"};
